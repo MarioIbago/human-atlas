@@ -1,0 +1,41 @@
+name: Validar Atlas Humano
+
+on:
+  push:
+    branches:
+      - main
+      - feat/atlas-es-indice-maestro
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.13.0'
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Revisar TypeScript
+        run: npm run check
+
+      - name: Validar atlas
+        run: node scripts/validate-atlas.mjs
+
+      - name: Validar interacciones
+        run: node scripts/validate-interactions.mjs
+
+      - name: Compilar aplicación
+        run: npm run build
