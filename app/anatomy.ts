@@ -24,6 +24,8 @@ export interface Part {
  id:string;
  name:string;
  nombreOriginal?:string;
+ sinonimos?:string[];
+ notaTerminologica?:string;
  conceptId:string;
  system:SystemId;
  chunk:number;
@@ -39,6 +41,8 @@ export interface Concept {
  id:string;
  name:string;
  nombreOriginal?:string;
+ sinonimos?:string[];
+ notaTerminologica?:string;
  elements:string[];
 }
 
